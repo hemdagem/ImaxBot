@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace imaxbot
+namespace IMaxBot
 {
     class Program
     {
