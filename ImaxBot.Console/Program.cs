@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace imaxbot
+namespace ImaxBot.Console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            System.Console.WriteLine("Hello World!");
         }
     }
 }
