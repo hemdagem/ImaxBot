@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ImaxBot.UnitTests
 {
-    class GetFilmTimes
+    class MapSearchTermToFilmId
     {
     }
 }

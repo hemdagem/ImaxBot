@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImaxBot.UnitTests", "ImaxBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImaxBot.Core", "ImaxBot.Core\ImaxBot.Core.csproj", "{D9CDB062-3C9C-4831-BC59-02CED316452F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImaxBot.IntegrationTests", "ImaxBot.IntegrationTests\ImaxBot.IntegrationTests.csproj", "{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,18 @@ Global
 		{D9CDB062-3C9C-4831-BC59-02CED316452F}.Release|x64.Build.0 = Release|Any CPU
 		{D9CDB062-3C9C-4831-BC59-02CED316452F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D9CDB062-3C9C-4831-BC59-02CED316452F}.Release|x86.Build.0 = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|x64.Build.0 = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Debug|x86.Build.0 = Debug|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|x64.ActiveCfg = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|x64.Build.0 = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|x86.ActiveCfg = Release|Any CPU
+		{DAA98FF5-955B-493F-A07C-7EEDC2DDCECE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
