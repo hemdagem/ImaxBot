@@ -1,14 +1,13 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using ImaxBot.Core;
 using Moq;
 using Xunit;
 
 namespace ImaxBot.UnitTests
 {
+    
     public class FilmFinderTests
     {
         private readonly FilmFinder _filmFinder;
