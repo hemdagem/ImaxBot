@@ -18,8 +18,9 @@ namespace ImaxBot.Core
         public SlackBot(IConfiguration configuration, IFilmFinder filmFinder)
         {
             _filmFinder = filmFinder;
-            _bot = new Bot(configuration["ImaxToken"], configuration["BotName"]);
-            _botName = configuration["BotName"];
+            _botName = configuration["SlackBotName"];
+            _bot = new Bot(configuration["SlackToken"], _botName);
+            
         }
 
         public void RunBot()
@@ -29,7 +30,7 @@ namespace ImaxBot.Core
                 if (message.MentionedUsers.Any(x => x == _botName))
                 {
                     string messageToSend = "";
-                    FilmInformation document = await _filmFinder.Find(message.Text);
+                    FilmInformation document = await _filmFinder.Find(message.Text.Remove(0,13).Trim());
 
                     if (document == null)
                     {

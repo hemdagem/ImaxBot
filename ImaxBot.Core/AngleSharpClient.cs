@@ -16,7 +16,7 @@ namespace ImaxBot.Core
         {
             var filmData = new List<FilmTimes>();
             IDocument document = await _context.OpenAsync($"{_imaxSite}/showtimes/showtimesByFilmCinema/?siteId=211&filmMasterId={filmId}");
-            foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".content-container.times.containerFUTURE li a").OfType<IHtmlAnchorElement>())
+            foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".performance-detail").OfType<IHtmlAnchorElement>())
             {
                 filmData.Add(new FilmTimes { AuditoriumInfo = filmAnchorTag.Attributes["data-auditorium-info"].Value, Title = filmAnchorTag.Attributes["title"].Value });
             }
