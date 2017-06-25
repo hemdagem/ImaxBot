@@ -11,10 +11,11 @@ namespace ImaxBot.Core
     public class AngleSharpClient : IAngleSharpClient
     {
         private readonly IBrowsingContext _context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
+        private readonly string _imaxSite = "http://www.odeon.co.uk";
         public async Task<List<FilmTimes>> GetFilmData(int filmId)
         {
             var filmData = new List<FilmTimes>();
-            IDocument document = await _context.OpenAsync($"http://www.odeon.co.uk/showtimes/showtimesByFilmCinema/?date=&siteId=211&filmMasterId={filmId}");
+            IDocument document = await _context.OpenAsync($"{_imaxSite}/showtimes/showtimesByFilmCinema/?siteId=211&filmMasterId={filmId}");
             foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".content-container.times.containerFUTURE li a").OfType<IHtmlAnchorElement>())
             {
                 filmData.Add(new FilmTimes { AuditoriumInfo = filmAnchorTag.Attributes["data-auditorium-info"].Value, Title = filmAnchorTag.Attributes["title"].Value });
@@ -23,15 +24,17 @@ namespace ImaxBot.Core
             return filmData;
         }
 
-        public async Task<Dictionary<string,int>> GetFilmIds()
+        public async Task<List<FilmInformation>> GetFilmIds()
         {
-            IDocument document = await _context.OpenAsync("http://www.odeon.co.uk");
-            Dictionary<string,int> filmIds = new Dictionary<string, int>();
+            IDocument document = await _context.OpenAsync(_imaxSite);
+            List<FilmInformation> filmIds = new List<FilmInformation>();
             foreach (IHtmlOptionElement optionElement in document.QuerySelectorAll("#your-film option").OfType<IHtmlOptionElement>())
             {
-                if (!optionElement.IsDisabled && optionElement.Value != "0" && !filmIds.ContainsKey(optionElement.Text))
+                if (optionElement.IsDisabled) continue;
+                int filmId = Convert.ToInt32(optionElement.Value);
+                if (filmId != 0 && !filmIds.Exists(x => x.FilmId == filmId))
                 {
-                    filmIds.Add(optionElement.Text,Convert.ToInt32(optionElement.Value));
+                    filmIds.Add(new FilmInformation { FilmId = filmId, FilmName = optionElement.Text });
                 }
             }
 

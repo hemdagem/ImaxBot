@@ -6,6 +6,6 @@ namespace ImaxBot.Core
     public interface IAngleSharpClient
     {
         Task<List<FilmTimes>> GetFilmData(int filmId);
-        Task<Dictionary<string, int>> GetFilmIds();
+        Task<List<FilmInformation>> GetFilmIds();
     }
 }
