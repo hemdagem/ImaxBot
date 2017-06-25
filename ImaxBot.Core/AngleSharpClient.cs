@@ -14,31 +14,34 @@ namespace ImaxBot.Core
         private readonly string _imaxSite = "http://www.odeon.co.uk";
         public async Task<List<FilmTimes>> GetFilmData(int filmId)
         {
-            var filmData = new List<FilmTimes>();
-            IDocument document = await _context.OpenAsync($"{_imaxSite}/showtimes/showtimesByFilmCinema/?siteId=211&filmMasterId={filmId}");
-            foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".performance-detail").OfType<IHtmlAnchorElement>())
+            using (IDocument document = await _context.OpenAsync($"{_imaxSite}/showtimes/showtimesByFilmCinema/?siteId=211&filmMasterId={filmId}"))
             {
-                filmData.Add(new FilmTimes { AuditoriumInfo = filmAnchorTag.Attributes["data-auditorium-info"].Value, Title = filmAnchorTag.Attributes["title"].Value });
-            }
+                var filmData = new List<FilmTimes>();
+                foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".performance-detail").OfType<IHtmlAnchorElement>())
+                {
+                    filmData.Add(new FilmTimes { AuditoriumInfo = filmAnchorTag.Attributes["data-auditorium-info"].Value, Title = filmAnchorTag.Attributes["title"].Value });
+                }
 
-            return filmData;
+                return filmData;
+            }
         }
 
         public async Task<List<FilmInformation>> GetFilmIds()
         {
-            IDocument document = await _context.OpenAsync(_imaxSite);
-            List<FilmInformation> filmIds = new List<FilmInformation>();
-            foreach (IHtmlOptionElement optionElement in document.QuerySelectorAll("#your-film option").OfType<IHtmlOptionElement>())
+            using (IDocument document = await _context.OpenAsync(_imaxSite))
             {
-                if (optionElement.IsDisabled) continue;
-                int filmId = Convert.ToInt32(optionElement.Value);
-                if (filmId != 0 && !filmIds.Exists(x => x.FilmId == filmId))
+                List<FilmInformation> filmIds = new List<FilmInformation>();
+                foreach (IHtmlOptionElement optionElement in document.QuerySelectorAll("#your-film option").OfType<IHtmlOptionElement>())
                 {
-                    filmIds.Add(new FilmInformation { FilmId = filmId, FilmName = optionElement.Text });
+                    if (optionElement.IsDisabled) continue;
+                    int filmId = Convert.ToInt32(optionElement.Value);
+                    if (filmId != 0 && !filmIds.Exists(x => x.FilmId == filmId))
+                    {
+                        filmIds.Add(new FilmInformation { FilmId = filmId, FilmName = optionElement.Text });
+                    }
                 }
+                return filmIds;
             }
-
-            return filmIds;
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using Slackbot;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using AngleSharp.Dom;
-using AngleSharp.Dom.Html;
 using Microsoft.Extensions.Configuration;
 
 namespace ImaxBot.Core
 {
-    
-    public class SlackBot : ISlackBot
+
+    public class SlackBot
     {
         private readonly IFilmFinder _filmFinder;
         private readonly Bot _bot;
@@ -20,7 +15,6 @@ namespace ImaxBot.Core
             _filmFinder = filmFinder;
             _botName = configuration["SlackBotName"];
             _bot = new Bot(configuration["SlackToken"], _botName);
-            
         }
 
         public void RunBot()
@@ -30,7 +24,7 @@ namespace ImaxBot.Core
                 if (message.MentionedUsers.Any(x => x == _botName))
                 {
                     string messageToSend = "";
-                    FilmInformation document = await _filmFinder.Find(message.Text.Remove(0,13).Trim());
+                    FilmInformation document = await _filmFinder.Find(message.Text.Remove(0, 13).Trim());
 
                     if (document == null)
                     {
@@ -39,6 +33,7 @@ namespace ImaxBot.Core
                     else
                     {
                         var filmDetails = await _filmFinder.GetFilmDetails(document.FilmId);
+                        if (filmDetails.Count == 0) { _bot.SendMessage(message.Channel, "No times available yet for that film"); }
                         foreach (var filmDetail in filmDetails)
                         {
                             messageToSend += filmDetail.Title + "\r\n" + filmDetail.AuditoriumInfo + "\r\n";
@@ -52,8 +47,4 @@ namespace ImaxBot.Core
 
     }
 
-    public interface ISlackBot
-    {
-        void RunBot();
-    }
 }
