@@ -7,14 +7,16 @@ namespace ImaxBot.Console
 {
     class Program
     {
-         public static IConfigurationRoot Configuration { get; set; }
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-            new SlackBot(new Configu).RunBot();
+                .AddJsonFile("appSettings.json")
+                .Build();
 
+            var slackBot = new SlackBot(builder, new FilmFinder(new AngleSharpClient()));
+            slackBot.RunBot();
+            System.Console.Read();
         }
     }
 }
