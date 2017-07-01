@@ -23,20 +23,17 @@ namespace ImaxBot.Core
             {
                 if (message.MentionedUsers.Any(x => x == _botName))
                 {
-                    string messageToSend = "";
+                    string messageToSend = "No times available yet for that film";
 
-                    FilmInformation document = await _filmFinder.Find(message.Text.Remove(0, 13).Trim());
+                    FilmInformation document = await _filmFinder.Find(CleanMessage(message.Text));
 
                     var filmDetails = await _filmFinder.GetFilmDetails(document.FilmId);
 
                     if (filmDetails.Count > 0)
                     {
+                        messageToSend = "";
                         foreach (var detail in filmDetails)
                             messageToSend += (detail.Title + "\r\n" + detail.AuditoriumInfo + "\r\n");
-                    }
-                    else
-                    {
-                        messageToSend = "No times available yet for that film";
                     }
 
                     _bot.SendMessage(message.Channel, messageToSend);
@@ -45,6 +42,10 @@ namespace ImaxBot.Core
             };
         }
 
+        private string CleanMessage(string message)
+        {
+            return message.Remove(0, 13).Trim();
+        }
     }
 
 }
