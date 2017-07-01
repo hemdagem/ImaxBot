@@ -10,7 +10,7 @@ namespace ImaxBot.Console
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appSettings.json")
                 .Build();
 
