@@ -24,23 +24,23 @@ namespace ImaxBot.Core
                 if (message.MentionedUsers.Any(x => x == _botName))
                 {
                     string messageToSend = "";
+
                     FilmInformation document = await _filmFinder.Find(message.Text.Remove(0, 13).Trim());
 
-                    if (document == null)
+                    var filmDetails = await _filmFinder.GetFilmDetails(document.FilmId);
+
+                    if (filmDetails.Count > 0)
                     {
-                        _bot.SendMessage(message.Channel, "Film not found");
+                        foreach (var detail in filmDetails)
+                            messageToSend += (detail.Title + "\r\n" + detail.AuditoriumInfo + "\r\n");
                     }
                     else
                     {
-                        var filmDetails = await _filmFinder.GetFilmDetails(document.FilmId);
-                        if (filmDetails.Count == 0) { _bot.SendMessage(message.Channel, "No times available yet for that film"); }
-                        foreach (var filmDetail in filmDetails)
-                        {
-                            messageToSend += filmDetail.Title + "\r\n" + filmDetail.AuditoriumInfo + "\r\n";
-                        }
-                        _bot.SendMessage(message.Channel, messageToSend);
-
+                        messageToSend = "No times available yet for that film";
                     }
+
+                    _bot.SendMessage(message.Channel, messageToSend);
+
                 }
             };
         }

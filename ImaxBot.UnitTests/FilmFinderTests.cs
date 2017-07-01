@@ -31,7 +31,10 @@ namespace ImaxBot.UnitTests
         {
             _angleSharpClientMock.Setup(x => x.GetFilmIds())
                 .ReturnsAsync(new List<FilmInformation> { new FilmInformation { FilmId = 1, FilmName = "test" } });
-            Assert.Null(await _filmFinder.Find("unknownfilm"));
+            var filmInformation = await _filmFinder.Find("unknownfilm");
+            var information = new FilmInformation();
+            Assert.Equal(information.FilmId, filmInformation.FilmId);
+            Assert.Equal(information.FilmName, filmInformation.FilmName);
         }
 
         [Fact]
@@ -85,7 +88,8 @@ namespace ImaxBot.UnitTests
         [InlineData(-10)]
         public async void GetFilmDetails_should_return_null_when_filmId_is_less_than_1(int filmId)
         {
-            Assert.Null(await _filmFinder.GetFilmDetails(filmId));
+            var filmTimes = await _filmFinder.GetFilmDetails(filmId);
+            Assert.Empty(filmTimes);
         }
 
         [Fact]

@@ -24,13 +24,12 @@ namespace ImaxBot.Core
                        x.FilmName.ToLower().StartsWith(filmNameLowerCase);
             });
 
-            return film;
+            return film ?? new FilmInformation();
         }
 
         public async Task<List<FilmTimes>> GetFilmDetails(int filmId)
         {
-            if (filmId < 1) return null;
-            return await _client.GetFilmData(filmId);
+            return filmId < 1 ? new List<FilmTimes>() : await _client.GetFilmData(filmId);
         }
     }
 }
