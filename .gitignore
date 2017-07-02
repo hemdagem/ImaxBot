@@ -30,3 +30,4 @@ msbuild.wrn
 out/
 # Visual Studio 2015
 .vs/
+.wercker/

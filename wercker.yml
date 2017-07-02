@@ -1,5 +1,6 @@
 box: microsoft/dotnet:1.1-sdk
 no-response-timeout: 10
+
 build:
   steps: 
     - script:
@@ -9,7 +10,21 @@ build:
     - script:
         name: build        
         code: |
-          dotnet build  
+          dotnet build
+test:
+  steps:  
+    - script:
+        name: unittests
+        cwd:  $WERCKER_ROOT/ImaxBot.UnitTests
+        code: |
+          dotnet test
+    - script:
+        name: integration
+        cwd:  $WERCKER_ROOT/ImaxBot.IntegrationTests
+        code: |
+          dotnet test
+deploy:
+  steps:
     - script:
         name: publish           
         code: |
@@ -18,15 +33,3 @@ build:
         name: copy binary        
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app
-test:
-  steps:
-    - script:
-        name: unittests
-        cwd:  $WERCKER_OUTPUT_DIR/app/ImaxBot.UnitTests
-        code: |
-          dotnet test
-    - script:
-        name: integration
-        cwd:  $WERCKER_OUTPUT_DIR/app/ImaxBot.IntegrationTests
-        code: |
-          dotnet test
