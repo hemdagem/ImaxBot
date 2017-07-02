@@ -28,4 +28,4 @@ test:
     - script:
         name: test
         code: |
-        dotnet test
+          dotnet test
