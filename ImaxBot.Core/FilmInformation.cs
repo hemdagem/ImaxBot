@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ImaxBot.Core
+﻿namespace ImaxBot.Core
 {
     public class FilmInformation
     {

@@ -13,7 +13,7 @@ namespace ImaxBot.Core
         }
         public async Task<FilmInformation> Find(string filmName)
         {
-            if (string.IsNullOrEmpty(filmName)) return null;
+            if (string.IsNullOrEmpty(filmName)) return new FilmInformation();
 
             List<FilmInformation> films = await _client.GetFilmIds();
 

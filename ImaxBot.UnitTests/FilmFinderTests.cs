@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ImaxBot.Core;
 using Moq;
@@ -23,7 +22,10 @@ namespace ImaxBot.UnitTests
         [InlineData("")]
         public async void Find_should_return_null_when_filmNameIsEmpty(string filmName)
         {
-            Assert.Null(await _filmFinder.Find(filmName));
+            var filmInformation = await _filmFinder.Find(filmName);
+            var information = new FilmInformation();
+            Assert.Equal(information.FilmId, filmInformation.FilmId);
+            Assert.Equal(information.FilmName, filmInformation.FilmName);
         }
 
         [Fact]

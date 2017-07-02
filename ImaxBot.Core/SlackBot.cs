@@ -44,7 +44,10 @@ namespace ImaxBot.Core
 
         private string CleanMessage(string message)
         {
-            return message.Remove(0, 13).Trim();
+            if (message.StartsWith("<"))
+                return message.Remove(0, 13).Trim();
+
+            return message.Trim();
         }
     }
 
