@@ -21,6 +21,12 @@ build:
 test:
   steps:
     - script:
-        name: test
+        name: unittests
+        cwd: /ImaxBot.UnitTests
+        code: |
+          dotnet test
+    - script:
+        name: integration
+        cwd: /ImaxBot.IntegrationTests
         code: |
           dotnet test
