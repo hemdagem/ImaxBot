@@ -24,7 +24,8 @@ build:
 publish:
   steps:
     - script:
-        name: publish           
+        name: publish
+        cwd:  $WERCKER_ROOT           
         code: |
           dotnet publish -c Release -o out
     - script:
