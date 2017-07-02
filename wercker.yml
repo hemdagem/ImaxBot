@@ -12,7 +12,15 @@ build:
         code: |
           dotnet build
 test:
-  steps:  
+  steps:
+    - script:
+        name: restore            
+        code: |
+          dotnet restore
+    - script:
+        name: build        
+        code: |
+          dotnet build  
     - script:
         name: unittests
         cwd:  $WERCKER_ROOT/ImaxBot.UnitTests
