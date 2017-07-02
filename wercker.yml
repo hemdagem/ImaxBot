@@ -13,19 +13,26 @@ build:
           dotnet build 
     - script:
         name: unittests
-        cwd:  $WERCKER_ROOT/ImaxBot.UnitTests
+        cwd:  $WERCKER_ROOT/$APP_NAME.UnitTests
         code: |
           dotnet test
     - script:
         name: integration
-        cwd:  $WERCKER_ROOT/ImaxBot.IntegrationTests
+        cwd:  $WERCKER_ROOT/$APP_NAME.IntegrationTests
         code: |
           dotnet test
 publish:
   steps:
     - script:
-        name: publish
-        cwd:  $WERCKER_ROOT           
+        name: restore            
+        code: |
+          dotnet restore
+    - script:
+        name: build        
+        code: |
+          dotnet build 
+    - script:
+        name: publish        
         code: |
           dotnet publish -c Release -o out
     - script:
