@@ -10,17 +10,7 @@ build:
     - script:
         name: build        
         code: |
-          dotnet build
-test:
-  steps:
-    - script:
-        name: restore            
-        code: |
-          dotnet restore
-    - script:
-        name: build        
-        code: |
-          dotnet build  
+          dotnet build 
     - script:
         name: unittests
         cwd:  $WERCKER_ROOT/ImaxBot.UnitTests
@@ -31,7 +21,7 @@ test:
         cwd:  $WERCKER_ROOT/ImaxBot.IntegrationTests
         code: |
           dotnet test
-deploy:
+publish:
   steps:
     - script:
         name: publish           
