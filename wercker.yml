@@ -22,11 +22,11 @@ test:
   steps:
     - script:
         name: unittests
-        cwd: /ImaxBot.UnitTests
+        cwd:  $WERCKER_OUTPUT_DIR/app/ImaxBot.UnitTests
         code: |
           dotnet test
     - script:
         name: integration
-        cwd: /ImaxBot.IntegrationTests
+        cwd:  $WERCKER_OUTPUT_DIR/app/ImaxBot.IntegrationTests
         code: |
           dotnet test
