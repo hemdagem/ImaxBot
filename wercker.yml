@@ -23,6 +23,8 @@ build:
         name: copy binary        
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app
+test:
+  steps:
     - script:
         name: test
         code: |
