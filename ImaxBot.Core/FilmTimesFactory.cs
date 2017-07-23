@@ -12,10 +12,22 @@ namespace ImaxBot.Core
             var filmData = new List<FilmTimes>();
             foreach (IHtmlAnchorElement filmAnchorTag in document.QuerySelectorAll(".performance-detail").OfType<IHtmlAnchorElement>())
             {
-                filmData.Add(new FilmTimes { AuditoriumInfo = filmAnchorTag.Attributes["data-auditorium-info"].Value, Title = filmAnchorTag.Attributes["title"].Value });
+                filmData.Add(new FilmTimes
+                {
+                    AuditoriumInfo = GetAttributeValue(filmAnchorTag.Attributes,"data-auditorium-info"),
+                    Title = GetAttributeValue(filmAnchorTag.Attributes, "title")
+                });
             }
 
             return filmData;
+        }
+
+
+        private static string GetAttributeValue(INamedNodeMap nodeMap, string attribute)
+        {
+            var attributeValue = nodeMap[attribute];
+
+            return attributeValue == null ? "N/A" : attributeValue.Value;
         }
     }
 }
