@@ -6,4 +6,4 @@ ARG source
 COPY . ./
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
-ENTRYPOINT ["dotnet", "/app/ImaxBot.Console/out/ImaxBot.Console.dll"]
+ENTRYPOINT ["dotnet", "/app/ImaxBot.Console/out/ImaxBot.Console.dll", "ImaxBot", "$SLACK_TOKEN"]

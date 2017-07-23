@@ -9,12 +9,19 @@ namespace ImaxBot.Console
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appSettings.json")
-                .Build();
+            string botName = args[0];
+            string token = args[1];
+            if(botName == null)
+            {
+                throw new Exception("Bot Name is required");
+            }
+            if(token == null)
+            {
+                throw new Exception("Slack Token is required");
+            }
 
-            var slackBot = new SlackBot(builder, new FilmFinder(new AngleSharpClient()));
+
+            var slackBot = new SlackBot(botName,token, new FilmFinder(new AngleSharpClient()));
             slackBot.RunBot();
             System.Console.Read();
         }

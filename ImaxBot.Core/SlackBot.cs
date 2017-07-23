@@ -10,11 +10,11 @@ namespace ImaxBot.Core
         private readonly IFilmFinder _filmFinder;
         private readonly Bot _bot;
         private readonly string _botName;
-        public SlackBot(IConfiguration configuration, IFilmFinder filmFinder)
+        public SlackBot(string botName, string slackToken, IFilmFinder filmFinder)
         {
             _filmFinder = filmFinder;
-            _botName = configuration["SlackBotName"];
-            _bot = new Bot(configuration["SlackToken"], _botName);
+            _botName = botName;
+            _bot = new Bot(slackToken, _botName);
         }
 
         public void RunBot()
