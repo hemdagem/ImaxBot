@@ -1,9 +1,10 @@
 FROM microsoft/dotnet:1.1-sdk
 WORKDIR /app
 
-ARG source
-# copy and build everything else
+ENV SLACK_TOKEN=''
+ENV SLACK_BOT_NAME ='ImaxBot'
+
 COPY . ./
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
-ENTRYPOINT ["dotnet", "/app/ImaxBot.Console/out/ImaxBot.Console.dll", "ImaxBot", "$SLACK_TOKEN"]
+ENTRYPOINT ["dotnet", "/app/ImaxBot.Console/out/ImaxBot.Console.dll"]
