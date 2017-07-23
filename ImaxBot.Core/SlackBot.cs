@@ -5,24 +5,24 @@ using Microsoft.Extensions.Configuration;
 
 namespace ImaxBot.Core
 {
-
     public class SlackBot
     {
         private readonly IFilmFinder _filmFinder;
+        private readonly SlackConnectionInfo _slackConfig;
 
-        public SlackBot(IFilmFinder filmFinder)
+        public SlackBot(IFilmFinder filmFinder, ISlackConfig slackConfig)
         {
             _filmFinder = filmFinder;
+            _slackConfig = slackConfig.GetConfig();
         }
 
         public void RunBot()
         {
-            string botName = Environment.GetEnvironmentVariable("SLACK_BOT_NAME");
-            Bot bot = new Bot(Environment.GetEnvironmentVariable("SLACK_TOKEN"), botName);
+            Bot bot = new Bot(_slackConfig.Token, _slackConfig.BotName);
 
             bot.OnMessage += async (sender, message) =>
             {
-                if (message.MentionedUsers.Any(x => x == botName))
+                if (message.MentionedUsers.Any(x => x == _slackConfig.BotName))
                 {
                     string messageToSend = "No times available yet for that film";
 
@@ -44,10 +44,7 @@ namespace ImaxBot.Core
 
         private string CleanMessage(string message)
         {
-            if (message.StartsWith("<"))
-                return message.Remove(0, 13).Trim();
-
-            return message.Trim();
+            return message.StartsWith("<") ? message.Remove(0, 13).Trim() : message.Trim();
         }
     }
 }

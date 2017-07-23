@@ -6,7 +6,8 @@ namespace ImaxBot.Console
     {
         static void Main(string[] args)
         {
-            var slackBot = new SlackBot(new FilmFinder(new AngleSharpClient()));
+            ISlackConfig slackConfig = args.Length > 0 ? (ISlackConfig) new ArgumentsSlackConfig(args) : (ISlackConfig) new EnvironmentSlackConfig();
+            var slackBot = new SlackBot(new FilmFinder(new AngleSharpClient()),slackConfig);
             slackBot.RunBot();
             System.Console.Read();
         }
