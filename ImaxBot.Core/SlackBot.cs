@@ -1,4 +1,5 @@
-﻿using Slackbot;
+﻿using System;
+using Slackbot;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 
@@ -8,20 +9,20 @@ namespace ImaxBot.Core
     public class SlackBot
     {
         private readonly IFilmFinder _filmFinder;
-        private readonly Bot _bot;
-        private readonly string _botName;
-        public SlackBot(string botName, string slackToken, IFilmFinder filmFinder)
+
+        public SlackBot(IFilmFinder filmFinder)
         {
             _filmFinder = filmFinder;
-            _botName = botName;
-            _bot = new Bot(slackToken, _botName);
         }
 
         public void RunBot()
         {
-            _bot.OnMessage += async (sender, message) =>
+            string botName = Environment.GetEnvironmentVariable("SLACK_BOT_NAME");
+            Bot bot = new Bot(Environment.GetEnvironmentVariable("SLACK_TOKEN"), botName);
+
+            bot.OnMessage += async (sender, message) =>
             {
-                if (message.MentionedUsers.Any(x => x == _botName))
+                if (message.MentionedUsers.Any(x => x == botName))
                 {
                     string messageToSend = "No times available yet for that film";
 
@@ -33,11 +34,10 @@ namespace ImaxBot.Core
                     {
                         messageToSend = "";
                         foreach (var detail in filmDetails)
-                            messageToSend += (detail.Title + "\r\n" + detail.AuditoriumInfo + "\r\n");
+                            messageToSend += $"{detail.Title} \r\n {detail.AuditoriumInfo} \r\n";
                     }
 
-                    _bot.SendMessage(message.Channel, messageToSend);
-
+                    bot.SendMessage(message.Channel, messageToSend);
                 }
             };
         }
@@ -50,5 +50,4 @@ namespace ImaxBot.Core
             return message.Trim();
         }
     }
-
 }
