@@ -4,7 +4,7 @@ using System.Linq;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 
-namespace ImaxBot.Core
+namespace ImaxBot.Core.FilmFinder
 {
     public class FilmInformationFactory
     {

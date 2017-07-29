@@ -1,4 +1,4 @@
-namespace ImaxBot.Core
+namespace ImaxBot.Core.SlackBot
 {
     public class SlackConnectionInfo 
     {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Linq;
+using ImaxBot.Core.FilmFinder;
+using ImaxBot.Core.SlackConfig;
 using Slackbot;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
 
-namespace ImaxBot.Core
+namespace ImaxBot.Core.SlackBot
 {
     public class SlackBot
     {

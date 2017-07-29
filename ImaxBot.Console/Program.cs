@@ -1,4 +1,8 @@
 ﻿using ImaxBot.Core;
+using ImaxBot.Core.AngleSharpClient;
+using ImaxBot.Core.FilmFinder;
+using ImaxBot.Core.SlackBot;
+using ImaxBot.Core.SlackConfig;
 
 namespace ImaxBot.Console
 {

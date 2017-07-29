@@ -3,7 +3,7 @@ using System.Linq;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 
-namespace ImaxBot.Core
+namespace ImaxBot.Core.FilmFinder
 {
     public class FilmTimesFactory
     {
@@ -22,11 +22,9 @@ namespace ImaxBot.Core
             return filmData;
         }
 
-
         private static string GetAttributeValue(INamedNodeMap nodeMap, string attribute)
         {
             var attributeValue = nodeMap[attribute];
-
             return attributeValue == null ? "N/A" : attributeValue.Value;
         }
     }

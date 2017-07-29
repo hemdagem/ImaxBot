@@ -1,5 +1,6 @@
 using ImaxBot.Core;
 using System.Threading.Tasks;
+using ImaxBot.Core.AngleSharpClient;
 using Xunit;
 
 namespace ImaxBot.IntegrationTests

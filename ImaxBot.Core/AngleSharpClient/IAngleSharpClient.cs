@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ImaxBot.Core.FilmFinder;
 
-namespace ImaxBot.Core
+namespace ImaxBot.Core.AngleSharpClient
 {
     public interface IAngleSharpClient
     {

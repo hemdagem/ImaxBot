@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ImaxBot.Core;
+using ImaxBot.Core.AngleSharpClient;
+using ImaxBot.Core.FilmFinder;
 using Moq;
 using Xunit;
 

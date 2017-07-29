@@ -1,10 +1,6 @@
-using System;
-using Slackbot;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
+using ImaxBot.Core.SlackBot;
 
-namespace ImaxBot.Core
+namespace ImaxBot.Core.SlackConfig
 {
     public class ArgumentsSlackConfig : ISlackConfig
     {
